@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Use the official Ruby image with version 3.2.0
-FROM ruby:3.2.0
+FROM ruby:3.0.4
 
 # Install dependencies
 RUN apt-get update -qq && apt-get install -y \
@@ -22,7 +22,7 @@ RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv && \
 
 # Install the specified Ruby version using rbenv
 ENV PATH="/root/.rbenv/bin:/root/.rbenv/shims:$PATH"
-RUN rbenv install 3.2.0 && rbenv global 3.2.0
+RUN rbenv install 3.0.4 && rbenv global 3.0.4
 
 # Set the working directory
 WORKDIR /myapp
