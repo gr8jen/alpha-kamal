@@ -4,4 +4,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "posts#index"
+
+  # up is needed for successfull deploy with Kamal
+  get "up", to: ->(_env) { [200, { "Content-Type" => "text/plain" }, ["pong"]] }
 end
