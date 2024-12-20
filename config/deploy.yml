@@ -58,7 +58,7 @@ env:
 # Use a different ssh user than root
 
 ssh:
-   user: gert-jan
+   user: websend
 
 # Use a persistent storage volume.
 #
