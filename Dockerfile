@@ -1,19 +1,47 @@
-FROM ruby:3.0.4-bullseye as base
+# syntax=docker/dockerfile:1
 
-RUN apt-get update -qq && apt-get install -y build-essential apt-utils libpq-dev nodejs
+# Use the official Ruby image with version 3.2.0
+FROM ruby:3.2.0
 
-WORKDIR /docker/app
+# Install dependencies
+RUN apt-get update -qq && apt-get install -y \
+  nodejs \
+  default-libmysqlclient-dev  \
+  libssl-dev \
+  libreadline-dev \
+  zlib1g-dev \
+  build-essential \
+  curl
 
-RUN gem install bundler
+# Install rbenv
+RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv && \
+  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc && \
+  echo 'eval "$(rbenv init -)"' >> ~/.bashrc && \
+  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build && \
+  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
 
-COPY Gemfile* ./
+# Install the specified Ruby version using rbenv
+ENV PATH="/root/.rbenv/bin:/root/.rbenv/shims:$PATH"
+RUN rbenv install 3.2.0 && rbenv global 3.2.0
 
-RUN bundle install
+# Set the working directory
+WORKDIR /myapp
 
-ADD . /docker/app
+# Copy the Gemfile and Gemfile.lock
+COPY Gemfile /myapp/Gemfile
+COPY Gemfile.lock /myapp/Gemfile.lock
 
-ARG DEFAULT_PORT=3000
+# Install Gems dependencies
+RUN gem install bundler && bundle install
 
-EXPOSE ${DEFAULT_PORT}
+# Copy the application code
+COPY . /myapp
 
-CMD [ "bundle","exec", "puma", "config.ru"]
+# Precompile assets (optional, if using Rails with assets)
+RUN bundle exec rake assets:precompile
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Command to run the server
+CMD ["rails", "server", "-b", "0.0.0.0"]
