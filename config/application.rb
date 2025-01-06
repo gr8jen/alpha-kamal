@@ -18,5 +18,8 @@ module Alpha
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Allow Mysql container access
+    config.web_console.permissions = '172.18.0.3'
   end
 end
