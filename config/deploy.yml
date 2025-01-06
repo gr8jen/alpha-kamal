@@ -7,7 +7,7 @@ image: gr8jen/alpha-kamal
 # Deploy to these servers.
 servers:
   web:
-    - 192.168.123.128
+    - 192.168.123.129
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -88,7 +88,7 @@ ssh:
 accessories:
    db:
      image: mysql:8.0
-     host: 192.168.123.128
+     host: 192.168.123.129
      port: "127.0.0.1:3306:3306"
      env:
        clear:
