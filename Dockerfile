@@ -41,8 +41,7 @@ COPY . /myapp
 RUN bundle exec rake assets:precompile
 
 # Expose the port the app runs on
-#EXPOSE 3000
-EXPOSE 80
+EXPOSE 3000
 
 # Command to run the server
 CMD ["rails", "server", "-b", "0.0.0.0"]
