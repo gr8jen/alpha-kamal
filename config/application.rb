@@ -20,6 +20,6 @@ module Alpha
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Allow access
-    config.web_console.permissions = '172.18.0.0/32'
+    config.web_console.permissions = '172.18.0.2'
   end
 end
