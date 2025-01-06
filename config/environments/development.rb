@@ -71,4 +71,15 @@ Rails.application.configure do
 
   # Allowed hosts
   config.hosts << /[a-z0-9\-.]+\.mobiel\.io/
+
+
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = false
+
+  # Skip http-to-https redirect for the default health check endpoint.
+  config.ssl_options = {
+    redirect: {
+      exclude: ->(request) { request.path == “/up” }
+    }
+  }
 end
