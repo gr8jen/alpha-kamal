@@ -1,5 +1,5 @@
 #!/bin/sh
 
-# If database exists, migrate. Otherwise create
-bundle exec rails db:migrate
+# If database does not exists, create
+bundle exec rails db:create
 echo "Done!"
