@@ -44,4 +44,5 @@ RUN bundle exec rake assets:precompile
 EXPOSE 3000
 
 # Command to run the server
-CMD ["rails", "server", "-b", "0.0.0.0"]
+#CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["docker/startup.sh"]
